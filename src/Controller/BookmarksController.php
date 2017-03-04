@@ -8,7 +8,6 @@ namespace App\Controller;
  */
 class BookmarksController extends AppController
 {
-
     /**
      * Index method
      *
@@ -23,6 +22,13 @@ class BookmarksController extends AppController
 
         $this->set(compact('bookmarks'));
         $this->set('_serialize', ['bookmarks']);
+    }
+
+    public function export($limit = 100)
+    {
+        $bookmarks = $this->Bookmarks->find('all')->limit($limit);
+
+        $this->set('bookmarks', $bookmarks);
     }
 
     /**
@@ -50,6 +56,7 @@ class BookmarksController extends AppController
     public function add()
     {
         $bookmark = $this->Bookmarks->newEntity();
+
         if ($this->request->is('post')) {
             $bookmark = $this->Bookmarks->patchEntity($bookmark, $this->request->getData());
             if ($this->Bookmarks->save($bookmark)) {
@@ -59,8 +66,10 @@ class BookmarksController extends AppController
             }
             $this->Flash->error(__('The bookmark could not be saved. Please, try again.'));
         }
+
         $users = $this->Bookmarks->Users->find('list', ['limit' => 200]);
         $tags  = $this->Bookmarks->Tags->find('list', ['limit' => 200]);
+
         $this->set(compact('bookmark', 'users', 'tags'));
         $this->set('_serialize', ['bookmark']);
     }

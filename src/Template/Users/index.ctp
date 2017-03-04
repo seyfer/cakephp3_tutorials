@@ -27,7 +27,11 @@
 		</tr>
 		</thead>
 		<tbody>
-        <?php foreach ($users as $user): ?>
+        <?php
+		/** @var \App\Model\Entity\User $user */
+        foreach ($users as $user):
+//			debug($user->name);
+			?>
 			<tr>
 				<td><?= $this->Number->format($user->id) ?></td>
 				<td><?= h($user->email) ?></td>

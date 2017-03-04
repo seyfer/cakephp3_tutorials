@@ -3,6 +3,7 @@ namespace App\Model\Table;
 
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
+use Cake\Validation\Validation;
 use Cake\Validation\Validator;
 
 /**
@@ -43,7 +44,7 @@ class BookmarksTable extends Table
         $this->belongsTo('Users', [
             'foreignKey' => 'user_id'
         ]);
-        
+
         $this->belongsToMany('Tags', [
             'foreignKey'       => 'bookmark_id',
             'targetForeignKey' => 'tag_id',
@@ -65,11 +66,17 @@ class BookmarksTable extends Table
 
         $validator
             ->requirePresence('title', 'create')
-            ->notEmpty('title');
+            ->notEmpty('title')
+            ->add('title', 'notUrl', [
+                'rule'     => ['notUrl'],
+                'provider' => 'table',
+                'message'  => 'Cannot be a url',
+            ]);
 
         $validator
             ->requirePresence('url', 'create')
-            ->notEmpty('url');
+            ->notEmpty('url')
+            ->add('url', 'url', ['rule' => ['url']]);
 
         return $validator;
     }
@@ -86,5 +93,15 @@ class BookmarksTable extends Table
         $rules->add($rules->existsIn(['user_id'], 'Users'));
 
         return $rules;
+    }
+
+    /**
+     * @param $value
+     * @param array $context
+     * @return bool
+     */
+    public function notUrl($value, array $context)
+    {
+        return !Validation::url($value);
     }
 }

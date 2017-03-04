@@ -29,4 +29,13 @@ class Tag extends Entity
         '*'  => true,
         'id' => false
     ];
+
+    /**
+     * @param $name
+     * @return mixed|string
+     */
+    protected function _setName($name)
+    {
+        return mb_strtolower($name);
+    }
 }

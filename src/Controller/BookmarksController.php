@@ -17,6 +17,8 @@ class BookmarksController extends AppController
      */
     public function index()
     {
+
+
         $this->paginate = [
             'contain' => ['Users', 'Tags']
         ];
@@ -26,6 +28,9 @@ class BookmarksController extends AppController
         $this->set('_serialize', ['bookmarks']);
     }
 
+    /**
+     * @param int $limit
+     */
     public function export($limit = 100)
     {
         $bookmarks = $this->Bookmarks->find('all');
@@ -45,6 +50,9 @@ class BookmarksController extends AppController
 //        exit;
 
         $this->set('bookmarks', $bookmarks);
+
+        $this->viewBuilder()->setLayout('ajax');
+
     }
 
     /**

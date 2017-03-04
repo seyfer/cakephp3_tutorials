@@ -43,6 +43,7 @@ class BookmarksTable extends Table
         $this->belongsTo('Users', [
             'foreignKey' => 'user_id'
         ]);
+        
         $this->belongsToMany('Tags', [
             'foreignKey'       => 'bookmark_id',
             'targetForeignKey' => 'tag_id',

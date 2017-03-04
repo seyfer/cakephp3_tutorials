@@ -1,6 +1,8 @@
 <?php
 namespace App\Controller;
 
+use Cake\Database\Query;
+
 /**
  * Bookmarks Controller
  *
@@ -26,7 +28,21 @@ class BookmarksController extends AppController
 
     public function export($limit = 100)
     {
-        $bookmarks = $this->Bookmarks->find('all')->limit($limit);
+        $bookmarks = $this->Bookmarks->find('all');
+
+        $bookmarks->enableAutoFields(true);
+
+        $bookmarks->limit($limit)
+                  ->where(['user_id' => 1]);
+
+//        $bookmarks->contain(['Tags']);
+
+        $bookmarks->contain(['Tags' => function (Query $q) {
+            return $q->where(['Tags.name LIKE' => '%t%']);
+        }]);
+
+//        debug($bookmarks);
+//        exit;
 
         $this->set('bookmarks', $bookmarks);
     }

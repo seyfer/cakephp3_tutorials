@@ -56,7 +56,12 @@ class BookmarksController extends AppController
 
 //        debug($bookmarks);
 //        exit;
+        $this->response->withDownload('export.csv');
 
+        $this->set('_serialize', 'bookmarks');
+        $this->set('_header', ['Title', 'Url']);
+        $this->set('_extract', ['title', 'url']);
+        $this->viewBuilder()->setClassName('CsvView.Csv');
         $this->set('bookmarks', $bookmarks);
 
         //json

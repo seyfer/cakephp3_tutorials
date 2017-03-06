@@ -9,7 +9,8 @@
     "cakephp/cakephp": "3.4.*",
     "mobiledetect/mobiledetectlib": "2.*",
     "cakephp/migrations": "~1.0",
-    "cakephp/plugin-installer": "*"
+    "cakephp/plugin-installer": "*",
+    "friendsofcake/cakephp-csvview": "~3.0"
   },
   "require-dev": {
     "psy/psysh": "@stable",
@@ -24,13 +25,15 @@
   },
   "autoload": {
     "psr-4": {
-      "App\\": "src"
+      "App\\": "src",
+      "UsersFind\\": "./plugins/UsersFind/src"
     }
   },
   "autoload-dev": {
     "psr-4": {
       "App\\Test\\": "tests",
-      "Cake\\Test\\": "./vendor/cakephp/cakephp/tests"
+      "Cake\\Test\\": "./vendor/cakephp/cakephp/tests",
+      "UsersFind\\Test\\": "./plugins/UsersFind/tests"
     }
   },
   "scripts": {

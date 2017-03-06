@@ -1,11 +1,11 @@
 <?php
-namespace App\Test\TestCase\Model\Behavior;
+namespace UsersFind\Test\TestCase\Model\Behavior;
 
-use App\Model\Behavior\UsersFindBehavior;
 use Cake\TestSuite\TestCase;
+use UsersFind\Model\Behavior\UsersFindBehavior;
 
 /**
- * App\Model\Behavior\UsersFindBehavior Test Case
+ * UsersFind\Model\Behavior\UsersFindBehavior Test Case
  */
 class UsersFindBehaviorTest extends TestCase
 {
@@ -13,7 +13,7 @@ class UsersFindBehaviorTest extends TestCase
     /**
      * Test subject
      *
-     * @var \App\Model\Behavior\UsersFindBehavior
+     * @var \UsersFind\Model\Behavior\UsersFindBehavior
      */
     public $UsersFind;
 
@@ -25,7 +25,7 @@ class UsersFindBehaviorTest extends TestCase
     public function setUp()
     {
         parent::setUp();
-//        $this->UsersFind = new UsersFindBehavior();
+        $this->UsersFind = new UsersFindBehavior();
     }
 
     /**

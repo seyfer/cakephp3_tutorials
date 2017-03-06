@@ -26,7 +26,7 @@ class BookmarkHelperTest extends TestCase
     public function setUp()
     {
         parent::setUp();
-        $view = new View();
+        $view           = new View();
         $this->Bookmark = new BookmarkHelper($view);
     }
 
@@ -50,5 +50,16 @@ class BookmarkHelperTest extends TestCase
     public function testInitialization()
     {
         $this->markTestIncomplete('Not implemented yet.');
+    }
+
+    public function testUrl()
+    {
+        $data     = ['title' => 'TITLE', 'url' => 'http://test.com'];
+        $bookmark = new \App\Model\Entity\Bookmark($data);
+
+        $output   = $this->Bookmark->url($bookmark);
+
+        $expected = '<a href="http://test.com" title="TITLE" target="_blank">http://test.com</a>';
+        $this->assertEquals($expected, $output);
     }
 }

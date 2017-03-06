@@ -45,7 +45,8 @@ Router::defaultRouteClass(DashedRoute::class);
 
 Router::scope('/', function (RouteBuilder $routes) {
 
-    $routes->extensions(['json', 'xml', 'ajax']);
+    $routes->extensions(['json', 'xml', 'ajax', 'csv']);
+
     /**
      * Here, we are connecting '/' (base path) to a controller called 'Pages',
      * its action called 'display', and we pass a param to select the view file

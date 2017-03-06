@@ -1,7 +1,6 @@
 <?php
 namespace App\Test\TestCase\Model\Table;
 
-use App\Model\Table\BookmarksTable;
 use Cake\ORM\TableRegistry;
 use Cake\TestSuite\TestCase;
 
@@ -38,7 +37,7 @@ class BookmarksTableTest extends TestCase
     public function setUp()
     {
         parent::setUp();
-        $config = TableRegistry::exists('Bookmarks') ? [] : ['className' => 'App\Model\Table\BookmarksTable'];
+        $config          = TableRegistry::exists('Bookmarks') ? [] : ['className' => 'App\Model\Table\BookmarksTable'];
         $this->Bookmarks = TableRegistry::get('Bookmarks', $config);
     }
 
@@ -82,5 +81,15 @@ class BookmarksTableTest extends TestCase
     public function testBuildRules()
     {
         $this->markTestIncomplete('Not implemented yet.');
+    }
+
+    public function testNotUrl()
+    {
+        $value   = 'http://google.com';
+        $context = [];
+        $this->assertFalse($this->Bookmarks->notUrl($value, $context));
+        $value   = 'foo';
+        $context = [];
+        $this->assertTrue($this->Bookmarks->notUrl($value, $context));
     }
 }

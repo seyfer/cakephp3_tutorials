@@ -1,5 +1,7 @@
 <?php
-namespace App\Controller;
+namespace App\Controller\Admin;
+
+use App\Controller\AppController;
 
 /**
  * Users Controller
@@ -9,29 +11,14 @@ namespace App\Controller;
 class UsersController extends AppController
 {
 
-    public function isAuthorized($user)
-    {
-        return ($user['email'] == 'seyferseed@mail.ru');
-    }
-
     public function login()
     {
-        if ($this->request->is('post')) {
-            $user = $this->Auth->identify();
-
-            if ($user) {
-                $this->Auth->setUser($user);
-
-                return $this->redirect($this->Auth->redirectUrl());
-            }
-
-            $this->Flash->error(__('Invalid email or password, try again'));
-        }
+        return $this->redirect('/users/login');
     }
 
     public function logout()
     {
-        return $this->redirect($this->Auth->logout());
+        return $this->redirect('/users/logout');
     }
 
     /**
@@ -57,7 +44,7 @@ class UsersController extends AppController
     public function view($id = null)
     {
         $user = $this->Users->get($id, [
-            'contain' => ['Bookmarks', 'LastBookmarks']
+            'contain' => ['LastBookmarks', 'Bookmarks']
         ]);
 
         $this->set('user', $user);

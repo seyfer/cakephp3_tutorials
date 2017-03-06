@@ -10,6 +10,14 @@ use Cake\Database\Query;
  */
 class BookmarksController extends AppController
 {
+
+    public function initialize()
+    {
+        parent::initialize();
+
+        $this->loadComponent('Validate');
+    }
+
     /**
      * Index method
      *
@@ -17,8 +25,6 @@ class BookmarksController extends AppController
      */
     public function index()
     {
-
-
         $this->paginate = [
             'contain' => ['Users', 'Tags']
         ];
@@ -33,12 +39,14 @@ class BookmarksController extends AppController
      */
     public function export($limit = 100)
     {
-        $bookmarks = $this->Bookmarks->find('all');
+        $limit = $this->Validate->validLimit($limit, 100);
+
+        $bookmarks = $this->Bookmarks->find('forUser', ['user_id' => 1]);
 
         $bookmarks->enableAutoFields(true);
 
-        $bookmarks->limit($limit)
-                  ->where(['user_id' => 1]);
+        $bookmarks->limit($limit);
+//                  ->where(['user_id' => 1]);
 
 //        $bookmarks->contain(['Tags']);
 
@@ -51,7 +59,8 @@ class BookmarksController extends AppController
 
         $this->set('bookmarks', $bookmarks);
 
-        $this->viewBuilder()->setLayout('ajax');
+        //json
+//        $this->viewBuilder()->setLayout('ajax');
 
     }
 

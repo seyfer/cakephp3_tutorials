@@ -3,6 +3,9 @@
  * @var \App\View\AppView $this
  */
 
+use Cake\Utility\Hash;
+use Cake\Utility\Text;
+
 $this->assign('title', $bookmark->title);
 $this->prepend('title', 'View ');
 $this->append('title', ' bookmark');
@@ -48,6 +51,10 @@ $this->append('title', ' bookmark');
 		<tr>
 			<th scope="row"><?= __('Modified') ?></th>
 			<td><?= h($bookmark->modified) ?></td>
+		</tr>
+		<tr>
+			<th scope="row"><?= __('Tags') ?></th>
+			<td><?= h(Text::toList(Hash::extract($bookmark, 'tags.{n}.name'))) ?></td>
 		</tr>
 	</table>
 	<div class="related">

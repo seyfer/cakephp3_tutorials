@@ -1,7 +1,7 @@
 <?php
 namespace App\Test\TestCase\Controller;
 
-use App\Controller\BookmarksController;
+use Cake\ORM\TableRegistry;
 use Cake\TestSuite\IntegrationTestCase;
 
 /**
@@ -21,6 +21,25 @@ class BookmarksControllerTest extends IntegrationTestCase
         'app.tags',
         'app.bookmarks_tags'
     ];
+
+    public function setUp()
+    {
+        parent::setUp();
+        $config          = TableRegistry::exists('Bookmarks') ? [] : ['className' => 'App\Model\Table\BookmarksTable'];
+        $this->Bookmarks = TableRegistry::get('Bookmarks', $config);
+    }
+
+    /**
+     * tearDown method
+     *
+     * @return void
+     */
+    public function tearDown()
+    {
+        unset($this->Bookmarks);
+
+        parent::tearDown();
+    }
 
     /**
      * Test index method
@@ -49,7 +68,11 @@ class BookmarksControllerTest extends IntegrationTestCase
      */
     public function testAdd()
     {
-        $this->markTestIncomplete('Not implemented yet.');
+        $bookmark = ['title' => 'Foo', 'url' => 'http://foo.com', 'user_id' => 1];
+        $this->post('/bookmarks/add', $bookmark);
+        $this->assertRedirect('/bookmarks');
+        $count = $this->Bookmarks->find('all')->where($bookmark)->count();
+        $this->assertEquals(1, $count);
     }
 
     /**
@@ -71,4 +94,6 @@ class BookmarksControllerTest extends IntegrationTestCase
     {
         $this->markTestIncomplete('Not implemented yet.');
     }
+
+
 }

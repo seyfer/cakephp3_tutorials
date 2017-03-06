@@ -26,7 +26,7 @@ class ValidateComponentTest extends TestCase
     public function setUp()
     {
         parent::setUp();
-        $registry = new ComponentRegistry();
+        $registry       = new ComponentRegistry();
         $this->Validate = new ValidateComponent($registry);
     }
 
@@ -50,5 +50,13 @@ class ValidateComponentTest extends TestCase
     public function testInitialization()
     {
         $this->markTestIncomplete('Not implemented yet.');
+    }
+
+    public function testValidLimit()
+    {
+        $output = $this->Validate->validLimit(1, 0);
+        $this->assertEquals(1, $output);
+        $output = $this->Validate->validLimit('u', 0);
+        $this->assertEquals(0, $output);
     }
 }

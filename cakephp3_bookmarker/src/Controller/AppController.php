@@ -28,6 +28,11 @@ use Cake\Event\Event;
 class AppController extends Controller
 {
 
+    public function isAuthorized($user)
+    {
+        return false;
+    }
+
     /**
      * Initialization hook method.
      *
@@ -43,13 +48,27 @@ class AppController extends Controller
 
         $this->loadComponent('RequestHandler');
         $this->loadComponent('Flash');
+        $this->loadComponent('Auth', [
+            'authenticate'         => [
+                'Form' => [
+                    'fields' => [
+                        'username' => 'email',
+                        'password' => 'password'
+                    ]
+                ]
+            ],
+            'loginAction'          => [
+                'controller' => 'Users',
+                'action'     => 'login'
+            ],
+            // If unauthorized, return them to page they were just on
+            'unauthorizedRedirect' => $this->referer(),
+            'authorize'            => 'Controller',
+        ]);
 
-        /*
-         * Enable the following components for recommended CakePHP security settings.
-         * see http://book.cakephp.org/3.0/en/controllers/components/security.html
-         */
-        //$this->loadComponent('Security');
-        //$this->loadComponent('Csrf');
+        // Allow the display action so our pages controller
+        // continues to work.
+        $this->Auth->allow(['display']);
     }
 
     /**

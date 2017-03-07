@@ -1,7 +1,11 @@
 <!-- File: src/Template/Articles/index.ctp  (edit links added) -->
 
 <h1>Blog articles</h1>
+
 <p><?= $this->Html->link("Add Article", ['action' => 'add']) ?></p>
+
+<p><?= $this->Html->link("Categories", ['controller' => 'categories', 'action' => 'index']) ?></p>
+
 <table>
 	<tr>
 		<th>Id</th>

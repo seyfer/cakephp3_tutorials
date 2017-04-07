@@ -1,0 +1,1 @@
+Big data from database is: <strong><?php echo $data->amount; ?></strong>

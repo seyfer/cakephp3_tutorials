@@ -74,6 +74,7 @@ try {
     Configure::config('default', new PhpConfig());
     Configure::load('app', 'default', false);
     Configure::load('iolearn_config', 'default', false);
+
 } catch (\Exception $e) {
     exit($e->getMessage() . "\n");
 }
@@ -211,6 +212,8 @@ Type::build('timestamp')
  * Plugin::load('Migrations'); //Loads a single plugin named Migrations
  *
  */
+
+\Cake\Core\Plugin::load('BootstrapUI');
 
 /*
  * Only try to load DebugKit in development mode

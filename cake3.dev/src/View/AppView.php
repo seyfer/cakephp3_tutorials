@@ -25,17 +25,14 @@ use Cake\View\View;
  */
 class AppView extends View
 {
+//    use UIViewTrait;
 
     /**
      * Initialization hook method.
-     *
-     * Use this method to add common initialization code like loading helpers.
-     *
-     * e.g. `$this->loadHelper('Html');`
-     *
-     * @return void
      */
     public function initialize()
     {
+        //render the initializeUI method from the UIViewTrait
+//        $this->initializeUI(['layout' => false]);
     }
 }
